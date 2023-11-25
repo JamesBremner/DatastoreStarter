@@ -25,6 +25,11 @@ OBJ_starter = \
 	$(ODIR)/cObj.o \
 	$(ODIR)/cOutput.o \
 
+OBJ_console = \
+	$(ODIR)/console.o \
+	$(ODIR)/cObj.o \
+	$(ODIR)/cOutput.o \
+
 ### COMPILE
 
 $(ODIR)/%.o: %.cpp  
@@ -36,7 +41,15 @@ starter: $(OBJ_starter)
 	-o bin/starter.exe $^  \
 	$(static_link_flags) $(LIBS)
 
+console: $(OBJ_console)
+	g++ $(OPT) \
+	-o bin/console.exe $^  \
+	$(static_link_flags) $(LIBS)
+
 .PHONY: clean
 clean:
 	del /q .vscode\\obj\\*.o
+
+rebuild : clean starter console
+
 
