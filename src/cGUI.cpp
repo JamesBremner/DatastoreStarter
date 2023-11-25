@@ -6,7 +6,8 @@
 cGUI::cGUI(
     const std::string &title,
     const std::vector<int> &vlocation)
-    : fm(wex::maker::make())
+    : fm(wex::maker::make()),
+    pl(wex::maker::make<wex::panel>(fm))
 {
     generate();
     calculate();
@@ -15,6 +16,9 @@ cGUI::cGUI(
 
     fm.move(vlocation);
     fm.text(title);
+
+    pl.move({10,100,400,400});
+    pl.text("");
 
     fm.events().draw(
         [&](PAINTSTRUCT &ps)
@@ -26,3 +30,9 @@ cGUI::cGUI(
     fm.show();
     fm.run();
 }
+
+     void cGUI::draw( wex::shapes& S )
+    {
+        pl.text(
+            cObj::text() + "\n\n" + cOutput::text()         );
+    }
