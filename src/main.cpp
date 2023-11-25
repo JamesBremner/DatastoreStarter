@@ -1,34 +1,38 @@
-#include <string>
-#include <fstream>
-#include <sstream>
-#include <iostream>
-#include <vector>
-#include <algorithm>
+#include "app.h"
+
 #include <wex.h>
-#include "cStarterGUI.h"
+#include "cGUI.h"
 
-class cGUI : public cStarterGUI
+sDataStore theDataStore;
+
+void generate()
 {
-public:
-    cGUI()
-        : cStarterGUI(
-              "Starter",
-              {50, 50, 1000, 500}),
-          lb(wex::maker::make < wex::label >(fm))
+    cObj::add("A");
+    cObj::add("B");
+    cObj::add("C");
+}
+
+void calculate()
+{
+    for( cObj* o : cObj::get() )
     {
-        lb.move(50, 50, 100, 30);
-        lb.text("Hello World");
-
-        show();
-        run();
+        theDataStore.theOutput.push_back(
+            new cOutput( o->name() + "-processed"));
     }
+}
 
-private:
-    wex::label &lb;
-};
+
+std::string textOutput()
+{
+        std::string ret;
+    return ret;
+}
 
 main()
 {
-    cGUI theGUI;
+    cGUI theGUI(
+        "DataStore App",
+        {50, 50, 1000, 500});
+
     return 0;
 }
